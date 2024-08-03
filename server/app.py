@@ -18,6 +18,7 @@ db_hardware = db['hardwareset']
 app = Flask(__name__)
 CORS(app)
 
+# Route for user login
 @app.route('/create_project', methods=['POST'])
 def create_project():
     data = request.get_json()
@@ -36,20 +37,6 @@ def create_project():
         return jsonify({'message': 'Project created successfully'}), 201
     else:
         return jsonify({'message': 'The project already exists'}), 201
-
-# Route for user login
-@app.route('/login', methods=['POST'])
-def login():
-    # Extract data from request
-
-    # Connect to MongoDB
-
-    # Attempt to log in the user using the usersDB module
-
-    # Close the MongoDB connection
-
-    # Return a JSON response
-    return jsonify({})
 
 # Route for the main page (Work in progress)
 @app.route('/main')
@@ -107,19 +94,19 @@ def get_user_projects_list():
     # Return a JSON response
     return jsonify({})
 
-# Route for creating a new project
-@app.route('/create_project', methods=['POST'])
-def create_project():
-    # Extract data from request
+# # Route for creating a new project
+# @app.route('/create_project', methods=['POST'])
+# def create_project():
+#     # Extract data from request
 
-    # Connect to MongoDB
+#     # Connect to MongoDB
 
-    # Attempt to create the project using the projectsDB module
+#     # Attempt to create the project using the projectsDB module
 
-    # Close the MongoDB connection
+#     # Close the MongoDB connection
 
-    # Return a JSON response
-    return jsonify({})
+#     # Return a JSON response
+#     return jsonify({})
 
 # Route for getting project information
 @app.route('/get_project_info', methods=['POST'])
