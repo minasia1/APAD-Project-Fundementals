@@ -1,7 +1,7 @@
 # Import necessary libraries and modules
 from bson.objectid import ObjectId
 from flask import Flask, request, jsonify
-import flask_cors import CORS
+from flask_cors import CORS
 from pymongo import MongoClient
 
 # Import Database
