@@ -20,9 +20,25 @@ def queryProject(client, projectId):
     pass
 
 # Function to create a new project
-def createProject(client, projectName, projectId, description):
+def createProject(client, projectName, projectId, description, user):
     # Create a new project in the database
-    pass
+    project = {
+        'name': projectName,
+        'projectId': projectId,
+        'description': description,
+        'hwSets': {'HW1':0, 'HW2':0},
+        'users': [user]
+    }
+
+    p = {'projectId': projectId}
+    find = client.find_one(p)
+
+    try:
+        if find['projectId'] == projectId:
+            return {'status': 0}                        #project already exists
+    except:
+        client.insert_one(project)
+        return {'status': 1}
 
 # Function to add a user to a project
 def addUser(client, projectId, userId):

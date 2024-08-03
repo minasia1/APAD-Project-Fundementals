@@ -1,18 +1,41 @@
 # Import necessary libraries and modules
 from bson.objectid import ObjectId
 from flask import Flask, request, jsonify
+import flask_cors import CORS
 from pymongo import MongoClient
 
-# Import custom modules for database interactions
-import usersDB
-import projectsDB
-import hardwareDB
+# Import Database
+import projectsDatabase
+import hardwareDatabase
 
 # Define the MongoDB connection string
-MONGODB_SERVER = "your_mongodb_connection_string_here"
+MONGODB_SERVER = MongoClient("mongodb+srv://admin:123admin456@cluster0.fxjtzjv.mongodb.net/")
+db = MONGODB_SERVER['apad']
+db_project = db['project']
+db_hardware = db['hardwareset']
 
 # Initialize a new Flask web application
 app = Flask(__name__)
+CORS(app)
+
+@app.route('/create_project', methods=['POST'])
+def create_project():
+    data = request.get_json()
+
+    if not all(key in data for key in ('name', 'description', 'projectId')):
+        return jsonify({'error': 'Missing required fields'}), 400
+    
+    name =  data['name']
+    projectId = data['projectId']
+    description = data['description']
+    user = 'abc' #replace with the current user
+
+    result = projectsDatabase.createProject(db_project, name, projectId, description, user)
+
+    if result == 1:
+        return jsonify({'message': 'Project created successfully'}), 201
+    else:
+        return jsonify({'message': 'The project already exists'}), 201
 
 # Route for user login
 @app.route('/login', methods=['POST'])
